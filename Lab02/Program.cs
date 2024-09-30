@@ -6,7 +6,7 @@ namespace Lab02
 
     public class DocumentWorker
     {
-        public DocumentWorker() { }
+        public DocumentWorker() { Console.WriteLine("Key not found or wrong. Using basic document worker."); }
 
         public virtual void OpenDocument() { Console.WriteLine("Openned document"); }
 
@@ -17,13 +17,22 @@ namespace Lab02
 
     public class ProDocumentWorker : DocumentWorker 
     { 
-        public ProDocumentWorker() : base() { }
+        public ProDocumentWorker() : base() { Console.WriteLine("Accepted key for pro version. Using pro document worker."); }
 
-        public override void OpenDocument() { base.OpenDocument(); }
-
-        public override void SaveDocument() { Console.WriteLine("Saved document"); }
+        public override void SaveDocument() { Console.WriteLine("Saved document in old format. Please upgrade to expert version to change format."); }
 
         public override void EditDocument() { Console.WriteLine("Edited document"); }
+    }
+
+    public class ExpertDocumentWorker : ProDocumentWorker
+    {
+        public ExpertDocumentWorker() : base() { Console.WriteLine("Accepted key for expert version. Using expert document worker."); }
+
+        public override void SaveDocument()
+        {
+            Console.WriteLine("Saved document in new format.");
+        }
+
     }
 
     public class Vehicle
@@ -154,7 +163,28 @@ namespace Lab02
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Please, input key for document worker versions. (Type anything if you don't have one): ");
             
+            string? input = Console.ReadLine();
+
+            DocumentWorker documentWorker;
+
+            if (input == "proversionsecretkey") { documentWorker = new ProDocumentWorker(); }
+            else if (input == "expertversionsecretkey") { documentWorker = new ExpertDocumentWorker(); }
+            else { documentWorker = new DocumentWorker(); }
+
+            input = null;
+
+            Console.WriteLine("Type in commands for your document worker. You can see list of all commands if you type \"help\"");
+
+            while (input != "exit")
+            {
+                if (input == "help") { Console.WriteLine("save\nedit\nexit\nopen"); }
+                else if (input == "open") { documentWorker.OpenDocument(); }
+                else if (input == "save") { documentWorker.SaveDocument(); }
+                else if (input == "edit") { documentWorker.EditDocument(); }
+                else Console.WriteLine("Unknown command.");
+            }
         }
     }
 }
