@@ -3,6 +3,29 @@ using System.IO.Pipes;
 
 namespace Lab02
 {
+
+    public class DocumentWorker
+    {
+        public DocumentWorker() { }
+
+        public virtual void OpenDocument() { Console.WriteLine("Openned document"); }
+
+        public virtual void SaveDocument() { Console.WriteLine("Saving document is not avaliable at basic version. Please upgrade to pro version."); }
+
+        public virtual void EditDocument() { Console.WriteLine("Editing document is not avaliable at basic version. Please upgrade to pro version."); }
+    }
+
+    public class ProDocumentWorker : DocumentWorker 
+    { 
+        public ProDocumentWorker() : base() { }
+
+        public override void OpenDocument() { base.OpenDocument(); }
+
+        public override void SaveDocument() { Console.WriteLine("Saved document"); }
+
+        public override void EditDocument() { Console.WriteLine("Edited document"); }
+    }
+
     public class Vehicle
     {
         protected int x, y, price, speed, year;
