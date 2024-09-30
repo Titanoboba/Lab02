@@ -3,6 +3,69 @@ using System.IO.Pipes;
 
 namespace Lab02
 {
+    public class Vehicle
+    {
+        protected int x, y, price, speed, year;
+
+        public Vehicle(int x, int y, int price, int speed, int year)
+        {
+            this.x = x;
+            this.y = y;
+            this.price = price;
+            this.speed = speed;
+            this.year = year;
+        }
+
+        public virtual void Print()
+        {
+            System.Console.WriteLine($"Coordinates: {x}:{y}\nPrice: {price}\nSpeed: {speed}\nYear: {year}");
+        }
+    }
+
+    public class Plane : Vehicle
+    {
+        private double height;
+        private int passangers;
+     
+        public Plane(int x, int y, int price, int speed, int year, double height, int passangers) : base(x, y, price, speed, year)
+        {
+            this.height = height;
+            this.passangers = passangers;
+        }
+
+        public override void Print() 
+        {
+            base.Print();
+            System.Console.WriteLine($"Height: {height}\nPassangers: {passangers}\nI am a plane");
+
+        }
+    }
+
+    public class Car : Vehicle
+    {
+        public Car(int x, int y, int price, int speed, int year) : base(x, y, price, speed, year) {}
+
+        public override void Print()
+        {
+            base.Print();
+            System.Console.WriteLine("I am a car");
+        }
+    }
+
+    public class Ship : Vehicle
+    {
+        private string port;
+        private int passangers;
+
+        public Ship(int x, int y, int price, int speed, int year, string port, int passangers) : base(x, y, price, speed, year) { this.port = port; this.passangers = passangers; }
+
+        public override void Print()
+        {
+            base.Print();
+            System.Console.WriteLine($"Port: {port}\nPassangers: {passangers}\nI am a ship");
+        }
+    }
+
     public class ClassRoom
     {
         private Pupil[] pupils;
